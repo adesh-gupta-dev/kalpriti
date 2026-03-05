@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: 248 250 252;
+  --panel: 255 255 255;
+  --ink: 15 23 42;
+  --muted: 71 85 105;
+  --primary: 14 116 144;
+  --accent: 14 165 233;
+  --danger: 220 38 38;
+  --success: 22 163 74;
+  --warning: 202 138 4;
+}
+
+.dark {
+  --surface: 2 6 23;
+  --panel: 15 23 42;
+  --ink: 226 232 240;
+  --muted: 148 163 184;
+  --primary: 56 189 248;
+  --accent: 14 165 233;
+  --danger: 248 113 113;
+  --success: 74 222 128;
+  --warning: 250 204 21;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  background-color: rgb(var(--surface));
+  color: rgb(var(--ink));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sora", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 999px;
+}
+
+.markdown pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.95);
+  padding: 0.875rem;
+  color: #e2e8f0;
+  font-size: 0.8rem;
+}
+
+.markdown code {
+  border-radius: 0.35rem;
+  background: rgba(148, 163, 184, 0.2);
+  padding: 0.15rem 0.35rem;
+  font-size: 0.85em;
+}
+
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.kal-switch {
+  --switch-width: 46px;
+  --switch-height: 24px;
+  --switch-bg: rgb(131 131 131);
+  --switch-checked-bg: rgb(0 218 80);
+  --switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
+  --switch-transition: all 0.2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+  --circle-diameter: 18px;
+  --circle-bg: #fff;
+  --circle-shadow: 1px 1px 2px rgb(146 146 146 / 45%);
+  --circle-checked-shadow: -1px 1px 2px rgb(163 163 163 / 45%);
+  --icon-transition: all 0.2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+  --icon-cross-color: var(--switch-bg);
+  --icon-cross-size: 6px;
+  --icon-checkmark-color: var(--switch-checked-bg);
+  --icon-checkmark-size: 10px;
+  --effect-width: calc(var(--circle-diameter) / 2);
+  --effect-height: calc(var(--effect-width) / 2 - 1px);
+  --effect-bg: var(--circle-bg);
+  --effect-border-radius: 1px;
+  --effect-transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  position: relative;
+}
+
+.kal-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.kal-switch-slider {
+  box-sizing: border-box;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  background: var(--switch-bg);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: var(--switch-transition);
+}
+
+.kal-switch-circle {
+  width: var(--circle-diameter);
+  height: var(--circle-diameter);
+  background: var(--circle-bg);
+  border-radius: 999px;
+  box-shadow: var(--circle-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: var(--switch-offset);
+  z-index: 1;
+  transition: var(--switch-transition);
+}
+
+.kal-switch-slider::before {
+  content: "";
+  position: absolute;
+  width: var(--effect-width);
+  height: var(--effect-height);
+  left: calc(var(--switch-offset) + (var(--effect-width) / 2));
+  background: var(--effect-bg);
+  border-radius: var(--effect-border-radius);
+  transition: var(--effect-transition);
+}
+
+.kal-switch-cross,
+.kal-switch-checkmark {
+  position: absolute;
+  height: auto;
+  transition: var(--icon-transition);
+}
+
+.kal-switch-cross {
+  width: var(--icon-cross-size);
+  color: var(--icon-cross-color);
+}
+
+.kal-switch-checkmark {
+  width: var(--icon-checkmark-size);
+  color: var(--icon-checkmark-color);
+  transform: scale(0);
+}
+
+.kal-switch-input:checked + .kal-switch-slider {
+  background: var(--switch-checked-bg);
+}
+
+.kal-switch-input:checked + .kal-switch-slider .kal-switch-checkmark {
+  transform: scale(1);
+}
+
+.kal-switch-input:checked + .kal-switch-slider .kal-switch-cross {
+  transform: scale(0);
+}
+
+.kal-switch-input:checked + .kal-switch-slider::before {
+  left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
+}
+
+.kal-switch-input:checked + .kal-switch-slider .kal-switch-circle {
+  left: calc(100% - var(--circle-diameter) - var(--switch-offset));
+  box-shadow: var(--circle-checked-shadow);
+}
+
+.kal-switch-input:focus-visible + .kal-switch-slider {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 2px;
+}
