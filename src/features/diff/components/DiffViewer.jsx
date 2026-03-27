@@ -8,12 +8,16 @@ export function DiffViewer({
   theme,
   sideBySide,
 }) {
-  const editorTheme = useMemo(() => (theme === "dark" ? "vs-dark" : "light"), [theme]);
+  const editorTheme = useMemo(
+    () => (theme === "dark" ? "vs-dark" : "light"),
+    [theme],
+  );
 
   return (
-    <div className="h-[58vh] overflow-hidden rounded-xl border border-ink/10">
+    <div className="h-[58vh] overflow-hidden rounded-xl border border-ink/10 ">
       <DiffEditor
         height="58vh"
+        width="100dvw"
         original={original || ""}
         modified={modified || ""}
         language={language}

@@ -8,13 +8,13 @@ export function ProjectFilters({
   onVisibilityChange,
 }) {
   return (
-    <div className="grid gap-3 rounded-2xl border border-ink/10 bg-panel/60 p-4 md:grid-cols-[1fr_220px]">
+    <div className="grid gap-3 rounded-2xl border  border-ink/10 bg-panel/60 p-4 md:grid-cols-[1fr_220px]">
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-muted" />
+        <Search className="pointer-events-none absolute left-3 top-8 h-4 w-4 text-muted" />
         <Input
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
-          className="pl-9"
+          className="pl-9 mt-5"
           placeholder="Search projects by name"
           aria-label="Search projects"
         />

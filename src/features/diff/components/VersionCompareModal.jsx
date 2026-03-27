@@ -10,9 +10,10 @@ function resolveInitialSelection(versions, currentVersionIndex) {
   }
 
   const rightIndex = Number(currentVersionIndex);
-  const safeRightIndex = Number.isFinite(rightIndex) && rightIndex >= 0
-    ? Math.min(rightIndex, versions.length - 1)
-    : versions.length - 1;
+  const safeRightIndex =
+    Number.isFinite(rightIndex) && rightIndex >= 0
+      ? Math.min(rightIndex, versions.length - 1)
+      : versions.length - 1;
 
   const leftIndex = Math.max(0, safeRightIndex - 1);
 
@@ -66,7 +67,7 @@ export function VersionCompareModal({
       onClose={onClose}
       title="Compare Versions"
       description="Inspect code differences and restore the selected version."
-      className="max-w-[96vw]"
+      className="max-w-[96dvw]"
     >
       <div className="space-y-4">
         <div className="grid gap-3 md:grid-cols-3">

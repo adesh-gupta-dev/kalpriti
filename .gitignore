@@ -5,3 +5,6 @@ dist
 !.env.example
 pnpm-lock.*
 desktop.ini
+docker*
+.docker*
+stats.html
