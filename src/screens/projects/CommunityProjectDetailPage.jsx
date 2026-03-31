@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ArrowLeft, Code2, UserRound, CalendarDays } from "lucide-react";
 import { getCommunityProjectById } from "../../api/projectApi";
 import { AppSpinner } from "../../components/common/AppSpinner";
@@ -10,7 +11,8 @@ import { LivePreviewPane } from "../../features/projects/components/LivePreviewP
 import { formatDate } from "../../utils/formatters";
 
 export default function CommunityProjectDetailPage() {
-  const { id } = useParams();
+  const router = useRouter();
+  const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -31,6 +33,7 @@ export default function CommunityProjectDetailPage() {
   }
 
   useEffect(() => {
+    if (!id) return;
     fetchProjectDetail();
   }, [id]);
 
@@ -51,7 +54,7 @@ export default function CommunityProjectDetailPage() {
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Button as={Link} to="/community" variant="secondary" size="sm">
+        <Button as={Link} href="/community" variant="secondary" size="sm">
           <ArrowLeft className="h-4 w-4" />
           Back to Community
         </Button>

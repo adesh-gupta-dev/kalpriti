@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Globe2, UserRound, CalendarDays } from "lucide-react";
 import { Card } from "../../../components/ui/Card";
 import { Button } from "../../../components/ui/Button";
@@ -27,7 +27,7 @@ export function CommunityProjectCard({ project }) {
         </p>
       </div>
 
-      <Button as={Link} to={`/community/${project._id}`} variant="secondary" size="sm">
+      <Button as={Link} href={`/community/${project._id}`} variant="secondary" size="sm">
         <Globe2 className="h-4 w-4" />
         Open Showcase
       </Button>

@@ -1,5 +1,10 @@
-import { DiffEditor } from "@monaco-editor/react";
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
+
+const DiffEditor = dynamic(
+  () => import("@monaco-editor/react").then((mod) => mod.DiffEditor),
+  { ssr: false },
+);
 
 export function DiffViewer({
   original,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { Trash2 } from "lucide-react";
 import { getProjectById, editProject, deleteProject, updateProjectVisibility } from "../../api/projectApi";
@@ -13,8 +14,8 @@ import { PublishToggle } from "../../features/projects/components/PublishToggle"
 import { DeleteProjectModal } from "../../features/projects/components/DeleteProjectModal";
 
 export default function ProjectSettingsPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -38,6 +39,7 @@ export default function ProjectSettingsPage() {
   }
 
   useEffect(() => {
+    if (!id) return;
     fetchProject();
   }, [id]);
 
@@ -76,7 +78,7 @@ export default function ProjectSettingsPage() {
     try {
       await deleteProject(id);
       toast.success("Project deleted");
-      navigate("/projects");
+      router.push("/projects");
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to delete project");
     } finally {
@@ -98,7 +100,7 @@ export default function ProjectSettingsPage() {
           <h1 className="font-display text-3xl font-bold">Project Settings</h1>
           <p className="mt-1 text-sm text-muted">Update metadata and publish controls.</p>
         </div>
-        <Button as={Link} to={`/projects/${project._id}`} variant="secondary">
+        <Button as={Link} href={`/projects/${project._id}`} variant="secondary">
           Open Editor
         </Button>
       </div>

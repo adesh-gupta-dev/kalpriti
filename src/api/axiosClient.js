@@ -36,8 +36,10 @@ apiClient.interceptors.response.use(
 
       toast.error(message || "You are not authorized to perform this action.");
 
-      if (isPermissionDenied && window.location.pathname !== "/unauthorized") {
-        window.location.assign("/unauthorized");
+      if (isPermissionDenied && typeof window !== "undefined") {
+        if (window.location.pathname !== "/unauthorized") {
+          window.location.assign("/unauthorized");
+        }
       }
     }
 

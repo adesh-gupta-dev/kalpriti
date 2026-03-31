@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { RegisterForm } from "../../features/auth/components/RegisterForm";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function RegisterPage() {
   const { register } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(values) {
@@ -14,7 +15,7 @@ export default function RegisterPage() {
     try {
       await register(values);
       toast.success("Registration complete. Please sign in.");
-      navigate("/login");
+      router.push("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to register");
     } finally {
@@ -33,7 +34,7 @@ export default function RegisterPage() {
 
       <p className="text-sm text-muted">
         Already have an account?{" "}
-        <Link to="/login" className="font-semibold text-primary hover:underline">
+        <Link href="/login" className="font-semibold text-primary hover:underline">
           Sign in
         </Link>
       </p>

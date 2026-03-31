@@ -1,10 +1,10 @@
 export const APP_NAME = "Kalpriti";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL?.trim() || "http://localhost:3000";
+  process.env.NEXT_PUBLIC_API_URL?.trim() || "http://localhost:3000";
 
 export const STRIPE_PUBLISHABLE_KEY =
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY?.trim() || "";
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() || "";
 
 export const LOW_CREDIT_THRESHOLD = 5;
 

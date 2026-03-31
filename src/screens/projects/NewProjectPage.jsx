@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { Card } from "../../components/ui/Card";
 import { ProjectForm } from "../../features/projects/components/ProjectForm";
@@ -7,7 +7,7 @@ import { createProject } from "../../api/projectApi";
 import { useRequireVerified } from "../../contexts/AuthContext";
 
 export default function NewProjectPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { assertVerified } = useRequireVerified();
 
@@ -19,7 +19,7 @@ export default function NewProjectPage() {
       const response = await createProject(values);
       const project = response.WebsiteProject;
       toast.success(response.message || "Project created");
-      navigate(`/projects/${project._id}`);
+      router.push(`/projects/${project._id}`);
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to create project");
     } finally {

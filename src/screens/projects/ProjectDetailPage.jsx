@@ -1,5 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { addMessage, getConversations } from "../../api/conversationApi";
 import {
@@ -29,21 +31,27 @@ import { SaveVersionModal } from "../../features/versions/components/SaveVersion
 import { VersionDrawer } from "../../features/versions/components/VersionDrawer";
 import { buildPreviewDocument } from "../../utils/preview";
 
-const VersionCompareModal = lazy(() =>
-  import("../../features/diff/components/VersionCompareModal").then(
-    (module) => ({
-      default: module.VersionCompareModal,
-    }),
-  ),
+const VersionCompareModal = dynamic(
+  () =>
+    import("../../features/diff/components/VersionCompareModal").then(
+      (module) => module.VersionCompareModal,
+    ),
+  { ssr: false },
 );
-const EditorLayout = lazy(() =>
-  import("../../features/editor/components/EditorLayout").then((module) => ({
-    default: module.EditorLayout,
-  })),
+const EditorLayout = dynamic(
+  () =>
+    import("../../features/editor/components/EditorLayout").then(
+      (module) => module.EditorLayout,
+    ),
+  {
+    ssr: false,
+    loading: () => <AppSpinner label="Loading editor workspace..." />,
+  },
 );
 
 export default function ProjectDetailPage() {
-  const { id } = useParams();
+  const router = useRouter();
+  const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
   const { theme } = useTheme();
   const { assertVerified } = useRequireVerified();
 
@@ -105,6 +113,7 @@ export default function ProjectDetailPage() {
   }
 
   useEffect(() => {
+    if (!id) return;
     fetchAll();
   }, [id]);
 
@@ -259,7 +268,7 @@ export default function ProjectDetailPage() {
       <div className="grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3">
         <Button
           as={Link}
-          to="/projects"
+          href="/projects"
           variant="secondary"
           size="sm"
           className="w-full sm:w-auto"
@@ -268,7 +277,7 @@ export default function ProjectDetailPage() {
         </Button>
         <Button
           as={Link}
-          to={`/projects/${project._id}/settings`}
+          href={`/projects/${project._id}/settings`}
           variant="secondary"
           size="sm"
           className="w-full sm:w-auto"
@@ -289,24 +298,22 @@ export default function ProjectDetailPage() {
         onOpenFullscreenPreview={() => setFullscreenPreviewOpen(true)}
       />
 
-      <Suspense fallback={<AppSpinner label="Loading editor workspace..." />}>
-        <EditorLayout
-          projectId={id}
-          code={code}
-          onCodeChange={setCode}
-          theme={theme}
-          workspaceMode={workspaceMode}
-          chatPane={
-            <ChatWindow
-              messages={messages}
-              loading={assistantLoading}
-              onSend={handleSendMessage}
-            />
-          }
-          onSaveVersion={handleQuickSaveVersion}
-          saveVersionLoading={saveVersionLoading}
-        />
-      </Suspense>
+      <EditorLayout
+        projectId={id}
+        code={code}
+        onCodeChange={setCode}
+        theme={theme}
+        workspaceMode={workspaceMode}
+        chatPane={
+          <ChatWindow
+            messages={messages}
+            loading={assistantLoading}
+            onSend={handleSendMessage}
+          />
+        }
+        onSaveVersion={handleQuickSaveVersion}
+        saveVersionLoading={saveVersionLoading}
+      />
 
       <ProjectMetadataCard project={project} />
 
@@ -363,21 +370,19 @@ export default function ProjectDetailPage() {
         </div>
       </Modal>
 
-      <Suspense fallback={null}>
-        <VersionCompareModal
-          open={compareModalOpen}
-          onClose={() => setCompareModalOpen(false)}
-          versions={versions}
-          currentVersionIndex={currentVersionIndex}
-          onRestoreVersion={async (version) => {
-            if (!version?._id) return;
-            await performRestore(version._id);
-            setCompareModalOpen(false);
-          }}
-          restoreLoading={Boolean(restoringVersionId)}
-          theme={theme}
-        />
-      </Suspense>
+      <VersionCompareModal
+        open={compareModalOpen}
+        onClose={() => setCompareModalOpen(false)}
+        versions={versions}
+        currentVersionIndex={currentVersionIndex}
+        onRestoreVersion={async (version) => {
+          if (!version?._id) return;
+          await performRestore(version._id);
+          setCompareModalOpen(false);
+        }}
+        restoreLoading={Boolean(restoringVersionId)}
+        theme={theme}
+      />
     </section>
   );
 }

@@ -4,8 +4,7 @@ Production-ready React frontend for **Kalpriti**, an AI-powered website builder 
 
 ## Stack
 
-- React 18 + Vite
-- React Router v6
+- React 18 + Next.js (Pages Router, SSR)
 - Tailwind CSS
 - Axios (with interceptors)
 - React Hook Form + Zod
@@ -20,8 +19,8 @@ Production-ready React frontend for **Kalpriti**, an AI-powered website builder 
 Create `.env` in project root:
 
 ```bash
-VITE_API_URL=http://localhost:3000
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
 ```
 
 ## Setup
@@ -31,11 +30,11 @@ pnpm install
 pnpm dev
 ```
 
-Build and preview:
+Build and start:
 
 ```bash
 pnpm build
-pnpm preview
+pnpm start
 ```
 
 ## Key Routes
@@ -172,7 +171,8 @@ src/
     diff/
   hooks/
   layouts/
-  pages/
+  pages/ (Next.js routes)
+  screens/ (route views)
     auth/
     projects/
     admin/
@@ -183,6 +183,6 @@ src/
 
 ## Backend Assumptions
 
-- Base URL: `http://localhost:3000`
+- Base URL: `http://localhost:5000`
 - JWT in HTTP-only cookies
 - Frontend always uses `withCredentials: true`

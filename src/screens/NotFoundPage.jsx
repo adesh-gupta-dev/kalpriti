@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { SearchX } from "lucide-react";
 import { Button } from "../components/ui/Button";
 
@@ -114,7 +114,7 @@ export default function Space404() {
         {/* Button */}
         <Button
           as={Link}
-          to="/dashboard"
+          href="/dashboard"
           className="mt-10 inline-flex items-center px-8 py-4 font-bold text-white bg-blue-500 rounded-xl hover:bg-blue-600 transition shadow-[0_0_20px_rgba(59,130,246,0.4)]"
         >
           Back to Dashboard{" "}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Plus, FolderKanban, UserRoundCog, Sparkles, Coins } from "lucide-react";
 import { getMyProjects } from "../api/projectApi";
@@ -81,15 +81,15 @@ export default function DashboardPage() {
       <Card>
         <h2 className="font-display text-lg font-semibold">Quick Actions</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <Button as={Link} to="/projects/new" className="justify-start">
+          <Button as={Link} href="/projects/new" className="justify-start">
             <Plus className="h-4 w-4" />
             Create Project
           </Button>
-          <Button as={Link} to="/projects" variant="secondary" className="justify-start">
+          <Button as={Link} href="/projects" variant="secondary" className="justify-start">
             <FolderKanban className="h-4 w-4" />
             View Projects
           </Button>
-          <Button as={Link} to="/profile" variant="secondary" className="justify-start">
+          <Button as={Link} href="/profile" variant="secondary" className="justify-start">
             <UserRoundCog className="h-4 w-4" />
             Manage Profile
           </Button>
@@ -109,7 +109,7 @@ export default function DashboardPage() {
             recentProjects.map((project) => (
               <Link
                 key={project._id}
-                to={`/projects/${project._id}`}
+                href={`/projects/${project._id}`}
                 className="flex items-center justify-between rounded-xl border border-ink/10 bg-surface/60 px-4 py-3 transition-colors hover:border-primary/40"
               >
                 <div>

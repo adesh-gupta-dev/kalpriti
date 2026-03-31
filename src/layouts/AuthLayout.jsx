@@ -1,9 +1,9 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { ThemeToggle } from "../components/common/ThemeToggle";
 import { APP_NAME } from "../utils/constants";
 
-export function AuthLayout() {
-  const navigate = useNavigate();
+export function AuthLayout({ children }) {
+  const router = useRouter();
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-surface text-ink">
@@ -11,7 +11,7 @@ export function AuthLayout() {
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => router.push("/")}
           className="font-display text-xl font-bold text-primary"
         >
           {APP_NAME}
@@ -20,7 +20,7 @@ export function AuthLayout() {
       </header>
       <main className="relative z-10 flex min-h-[calc(100vh-90px)] items-center justify-center px-4 pb-8">
         <div className="w-full max-w-md rounded-3xl border border-ink/10 bg-panel/95 p-6 shadow-soft sm:p-8">
-          <Outlet />
+          {children}
         </div>
       </main>
     </div>

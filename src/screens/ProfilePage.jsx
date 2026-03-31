@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import { BadgeCheck, ShieldAlert } from "lucide-react";
 import { Card } from "../components/ui/Card";
@@ -67,7 +67,7 @@ export default function ProfilePage() {
             </span>
           )}
           {!user?.verified ? (
-            <Button as={Link} to="/verify-email" variant="secondary">
+            <Button as={Link} href="/verify-email" variant="secondary">
               Verify Now
             </Button>
           ) : null}

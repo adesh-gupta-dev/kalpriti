@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
 
   const handleUnauthorized = useCallback(() => {
     setUser(null);
+    if (typeof window === "undefined") return;
     const { pathname } = window.location;
     if (!isPublicAuthPath(pathname)) {
       window.location.assign("/login");

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   ArrowRight,
   Bot,
@@ -47,22 +47,22 @@ export default function LandingPage() {
       <HeroOrb className="bottom-10 left-1/3 h-72 w-72 bg-cyan-400/20" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-        <Link to="/" className="font-display text-2xl font-bold tracking-tight text-primary">
+        <Link href="/" className="font-display text-2xl font-bold tracking-tight text-primary">
           {APP_NAME}
         </Link>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {isAuthenticated ? (
-            <Button as={Link} to="/dashboard">
+            <Button as={Link} href="/dashboard">
               Dashboard
             </Button>
           ) : (
             <>
-              <Button as={Link} to="/login" variant="secondary" className="hidden sm:inline-flex">
+              <Button as={Link} href="/login" variant="secondary" className="hidden sm:inline-flex">
                 Login
               </Button>
-              <Button as={Link} to="/register">
+              <Button as={Link} href="/register">
                 Get Started
               </Button>
             </>
@@ -88,11 +88,11 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Button as={Link} to={isAuthenticated ? "/projects/new" : "/register"} size="lg">
+              <Button as={Link} href={isAuthenticated ? "/projects/new" : "/register"} size="lg">
                 Start Building
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button as={Link} to={isAuthenticated ? "/projects" : "/login"} variant="secondary" size="lg">
+              <Button as={Link} href={isAuthenticated ? "/projects" : "/login"} variant="secondary" size="lg">
                 View Demo Workflow
               </Button>
             </div>
@@ -176,7 +176,7 @@ export default function LandingPage() {
               Scale from personal projects to enterprise workflows.
             </p>
           </div>
-          <Button as={Link} to={isAuthenticated ? "/pricing" : "/register"} variant="secondary">
+          <Button as={Link} href={isAuthenticated ? "/pricing" : "/register"} variant="secondary">
             Full Pricing
           </Button>
         </div>
@@ -205,7 +205,7 @@ export default function LandingPage() {
               Start with Kalpriti and ship ideas into production quickly.
             </p>
           </div>
-          <Button as={Link} to={isAuthenticated ? "/projects/new" : "/register"} size="lg">
+          <Button as={Link} href={isAuthenticated ? "/projects/new" : "/register"} size="lg">
             <Rocket className="h-4 w-4" />
             Build with AI
           </Button>

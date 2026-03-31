@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { resetPassword } from "../../api/authApi";
 import { ResetPasswordForm } from "../../features/auth/components/ResetPasswordForm";
 
 export default function ResetPasswordPage() {
-  const { token } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const token = Array.isArray(router.query.token)
+    ? router.query.token[0]
+    : router.query.token;
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(values) {
@@ -14,7 +17,7 @@ export default function ResetPasswordPage() {
     try {
       const response = await resetPassword(token, values);
       toast.success(response.message || "Password reset complete");
-      navigate("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to reset password");
     } finally {
@@ -33,7 +36,7 @@ export default function ResetPasswordPage() {
 
       <p className="text-sm text-muted">
         Need a new link?{" "}
-        <Link to="/forgot-password" className="font-semibold text-primary hover:underline">
+        <Link href="/forgot-password" className="font-semibold text-primary hover:underline">
           Request reset link
         </Link>
       </p>

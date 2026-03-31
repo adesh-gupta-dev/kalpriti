@@ -95,7 +95,7 @@ export function CheckoutModal({
     >
       {stripeUnavailable ? (
         <div className="rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm text-warning">
-          Stripe key is missing. Add `VITE_STRIPE_PUBLISHABLE_KEY` in your environment.
+          Stripe key is missing. Add `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in your environment.
         </div>
       ) : null}
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
   LayoutDashboard,
   UserCircle2,
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { ThemeToggle } from "../components/common/ThemeToggle";
+import { NavLink } from "../components/common/NavLink";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { useAuth } from "../contexts/AuthContext";
@@ -48,10 +49,9 @@ const baseNavItems = [
   },
 ];
 
-export function AppLayout() {
+export function AppLayout({ children }) {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const navItems = [
     ...baseNavItems,
@@ -68,13 +68,13 @@ export function AppLayout() {
 
   useEffect(() => {
     setIsMobileNavOpen(false);
-  }, [location.pathname]);
+  }, [router.asPath]);
 
   async function handleLogout() {
     try {
       await logout();
       toast.success("Logged out successfully");
-      navigate("/login");
+      router.push("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to logout");
     }
@@ -86,7 +86,7 @@ export function AppLayout() {
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <button
             type="button"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => router.push("/dashboard")}
             className="font-display text-lg font-bold tracking-tight text-primary"
           >
             {APP_NAME}
@@ -98,7 +98,7 @@ export function AppLayout() {
               return (
                 <NavLink
                   key={item.to}
-                  to={item.to}
+                  href={item.to}
                   className={({ isActive }) =>
                     `inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
@@ -165,7 +165,7 @@ export function AppLayout() {
               return (
                 <NavLink
                   key={item.to}
-                  to={item.to}
+                  href={item.to}
                   onClick={() => setIsMobileNavOpen(false)}
                   className={({ isActive }) =>
                     cn(
@@ -204,7 +204,7 @@ export function AppLayout() {
       ) : null}
 
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <Outlet />
+        {children}
       </main>
     </div>
   );

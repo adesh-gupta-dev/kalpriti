@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { TriangleAlert } from "lucide-react";
 import { Button } from "../components/ui/Button";
 
@@ -10,7 +10,7 @@ export default function ServerErrorPage() {
       <p className="mt-2 text-sm text-muted">
         We could not complete this request due to an internal issue.
       </p>
-      <Button as={Link} to="/dashboard" className="mt-6">
+      <Button as={Link} href="/dashboard" className="mt-6">
         Back to Dashboard
       </Button>
     </main>

@@ -1,18 +1,26 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { AppSpinner } from "../components/common/AppSpinner";
 import { useAuth } from "../contexts/AuthContext";
 
-export function ProtectedRoute() {
+export function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
-  const location = useLocation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      const from = router.asPath || "/";
+      router.replace({ pathname: "/login", query: { from } });
+    }
+  }, [loading, isAuthenticated, router]);
 
   if (loading) {
     return <AppSpinner label="Checking authentication..." />;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+    return <AppSpinner label="Redirecting to login..." />;
   }
 
-  return <Outlet />;
+  return children;
 }

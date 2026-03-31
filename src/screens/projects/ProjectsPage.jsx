@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { PlusCircle } from "lucide-react";
 import { getMyProjects, deleteProject, updateProjectVisibility } from "../../api/projectApi";
@@ -12,7 +13,7 @@ import { ProjectListSkeleton } from "../../features/projects/components/ProjectL
 import { DeleteProjectModal } from "../../features/projects/components/DeleteProjectModal";
 
 export default function ProjectsPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
   const [visibility, setVisibility] = useState("all");
@@ -92,7 +93,7 @@ export default function ProjectsPage() {
           <h1 className="font-display text-3xl font-bold">Projects</h1>
           <p className="mt-1 text-sm text-muted">Browse and manage all generated websites.</p>
         </div>
-        <Button as={Link} to="/projects/new">
+        <Button as={Link} href="/projects/new">
           <PlusCircle className="h-4 w-4" />
           New Project
         </Button>
@@ -122,8 +123,8 @@ export default function ProjectsPage() {
             <ProjectCard
               key={project._id}
               project={project}
-              onOpen={() => navigate(`/projects/${project._id}`)}
-              onSettings={() => navigate(`/projects/${project._id}/settings`)}
+              onOpen={() => router.push(`/projects/${project._id}`)}
+              onSettings={() => router.push(`/projects/${project._id}/settings`)}
               onDelete={() => setDeletingProject(project)}
               onTogglePublish={() => handleTogglePublish(project)}
               publishLoading={publishLoadingId === project._id}

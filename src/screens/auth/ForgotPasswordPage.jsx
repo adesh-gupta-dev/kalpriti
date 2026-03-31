@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import { forgotPassword } from "../../api/authApi";
 import { ForgotPasswordForm } from "../../features/auth/components/ForgotPasswordForm";
@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
 
       <p className="text-sm text-muted">
         Remembered your password?{" "}
-        <Link to="/login" className="font-semibold text-primary hover:underline">
+        <Link href="/login" className="font-semibold text-primary hover:underline">
           Go back to login
         </Link>
       </p>

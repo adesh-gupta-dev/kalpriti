@@ -1,8 +1,10 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { BarChart3, CreditCard, LogOut, Shield, Home } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 import { ThemeToggle } from "../components/common/ThemeToggle";
+import { NavLink } from "../components/common/NavLink";
 import { Button } from "../components/ui/Button";
 
 const adminNavItems = [
@@ -18,15 +20,25 @@ const adminNavItems = [
   },
 ];
 
-export function AdminLayout() {
+function ButtonLink({ href, children, ...props }) {
+  return (
+    <Link href={href} legacyBehavior>
+      <Button as="a" {...props}>
+        {children}
+      </Button>
+    </Link>
+  );
+}
+
+export function AdminLayout({ children }) {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   async function handleLogout() {
     try {
       await logout();
       toast.success("Logged out successfully");
-      navigate("/login");
+      router.push("/login");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to logout");
     }
@@ -38,7 +50,7 @@ export function AdminLayout() {
         <aside className="border-r border-ink/10 bg-panel/80 p-4 backdrop-blur">
           <button
             type="button"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => router.push("/dashboard")}
             className="mb-6 inline-flex items-center gap-2 font-display text-xl font-bold text-primary"
           >
             <Shield className="h-5 w-5" />
@@ -46,17 +58,17 @@ export function AdminLayout() {
           </button>
 
           <nav className="space-y-2">
-            <Button as={NavLink} to="/dashboard" variant="ghost" className="w-full justify-start">
+            <ButtonLink href="/dashboard" variant="ghost" className="w-full justify-start">
               <Home className="h-4 w-4" />
               Back to App
-            </Button>
+            </ButtonLink>
 
             {adminNavItems.map((item) => {
               const Icon = item.icon;
               return (
                 <NavLink
                   key={item.to}
-                  to={item.to}
+                  href={item.to}
                   className={({ isActive }) =>
                     `flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
@@ -89,7 +101,7 @@ export function AdminLayout() {
           </header>
 
           <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
-            <Outlet />
+            {children}
           </main>
         </div>
       </div>
