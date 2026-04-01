@@ -13,5 +13,7 @@ export function NavLink({ href, className, exact = false, ...props }) {
   const resolvedClassName =
     typeof className === "function" ? className({ isActive }) : className;
 
-  return <Link href={href} className={resolvedClassName} {...props} />;
+  return (
+    <Link href={href} prefetch={false} className={resolvedClassName} {...props} />
+  );
 }

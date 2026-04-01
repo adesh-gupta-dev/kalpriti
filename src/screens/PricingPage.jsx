@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
+import Head from "next/head";
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { AlertTriangle } from "lucide-react";
 import { PRICING_PLANS } from "../utils/constants";
 import { Card } from "../components/ui/Card";
 import { PricingCard } from "../features/payments/components/PricingCard";
-import { CheckoutModal } from "../features/payments/components/CheckoutModal";
 import { TransactionTable } from "../features/payments/components/TransactionTable";
 import { createTransaction, getTransactions } from "../api/paymentApi";
 import { useAuth } from "../contexts/AuthContext";
+
+const CheckoutModal = dynamic(
+  () =>
+    import("../features/payments/components/CheckoutModal").then(
+      (module) => module.CheckoutModal,
+    ),
+  { ssr: false, loading: () => null },
+);
 
 export default function PricingPage() {
   const { user, refreshProfile } = useAuth();
@@ -16,6 +25,21 @@ export default function PricingPage() {
   const [clientSecret, setClientSecret] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [loadingPlanId, setLoadingPlanId] = useState("");
+  const structuredData = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Kalpriti Credits",
+      description: "Purchase credits and continue generating websites with Kalpriti.",
+      brand: { "@type": "Brand", name: "Kalpriti" },
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "USD",
+        offerCount: PRICING_PLANS.length,
+      },
+    }),
+    [],
+  );
 
   async function fetchTransactions() {
     try {
@@ -59,6 +83,29 @@ export default function PricingPage() {
 
   return (
     <section className="space-y-6">
+      <Head>
+        <title>Kalpriti Pricing | Plans & Credits</title>
+        <meta
+          name="description"
+          content="Purchase credits and continue generating websites with Kalpriti."
+        />
+        <meta
+          name="keywords"
+          content="AI website builder pricing, website builder plans, credits for AI website builder, Kalpriti pricing, SaaS website builder pricing, AI web design subscription"
+        />
+        <meta property="og:title" content="Kalpriti Pricing | Plans & Credits" />
+        <meta
+          property="og:description"
+          content="Purchase credits and continue generating websites with Kalpriti."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kalpriti.vercel.app/pricing" />
+        <meta name="twitter:card" content="summary" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <div>
         <h1 className="font-display text-3xl font-bold">Plans & Credits</h1>
         <p className="mt-1 text-sm text-muted">

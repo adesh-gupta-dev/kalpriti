@@ -38,7 +38,7 @@ body,
 
 body {
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   background-color: rgb(var(--surface));
   color: rgb(var(--ink));
 }
@@ -49,7 +49,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Sora", sans-serif;
+  font-family: var(--font-sora), sans-serif;
   letter-spacing: -0.01em;
 }
 

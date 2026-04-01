@@ -1,9 +1,22 @@
 import Head from "next/head";
+import { Sora, Space_Grotesk } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider, useTheme } from "../contexts/ThemeContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import { APP_NAME } from "../utils/constants";
 import "../index.css";
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
 
 function ThemedToaster() {
   const { theme } = useTheme();
@@ -29,24 +42,24 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Head>
-          <title>{defaultTitle}</title>
+        <div className={`${sora.variable} ${spaceGrotesk.variable}`}>
+          <Head>
+            <title>{defaultTitle}</title>
           <meta
             name="description"
             content="Kalpriti - AI-powered website builder platform"
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+          <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
+          <link rel="icon" href="/favicon-16x16.png" sizes="16x16" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="manifest" href="/site.webmanifest" />
-          {/* <link href="https://fonts.googleapis.com" /> */}
-          {/* <link href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
-          <link
-            href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
-        <ThemedToaster />
-        {getLayout(<Component {...pageProps} />)}
+          <meta name="theme-color" content="#0e7490" />
+          </Head>
+          <ThemedToaster />
+          {getLayout(<Component {...pageProps} />)}
+        </div>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -1,4 +1,6 @@
+import Head from "next/head";
 import Link from "next/link";
+import { useMemo } from "react";
 import {
   ArrowRight,
   Bot,
@@ -39,9 +41,49 @@ function FeatureCard({ icon: Icon, title, description }) {
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuth();
+  const structuredData = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: APP_NAME,
+      applicationCategory: "WebApplication",
+      operatingSystem: "Web",
+      description:
+        "Kalpriti turns ideas into deployable web experiences with AI chat, code editing, version control, and live preview.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    }),
+    [],
+  );
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-surface text-ink">
+      <Head>
+        <title>{APP_NAME} | AI Website Builder</title>
+        <meta
+          name="description"
+          content="Build production-ready websites from a single prompt with Kalpriti."
+        />
+        <meta
+          name="keywords"
+          content="AI website builder, prompt to website, website generator, AI web design, no-code website builder, code generation, landing page builder, website automation, SaaS website builder, Kalpriti"
+        />
+        <meta property="og:title" content={`${APP_NAME} | AI Website Builder`} />
+        <meta
+          property="og:description"
+          content="Build production-ready websites from a single prompt with Kalpriti."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kalpriti.vercel.app/" />
+        <meta name="twitter:card" content="summary" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <HeroOrb className="-left-16 top-8 h-60 w-60 bg-sky-500/20" />
       <HeroOrb className="right-0 top-24 h-72 w-72 bg-emerald-400/20" />
       <HeroOrb className="bottom-10 left-1/3 h-72 w-72 bg-cyan-400/20" />
@@ -51,7 +93,7 @@ export default function LandingPage() {
           {APP_NAME}
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-[180px] items-center justify-end gap-2">
           <ThemeToggle />
           {isAuthenticated ? (
             <Button as={Link} href="/dashboard">

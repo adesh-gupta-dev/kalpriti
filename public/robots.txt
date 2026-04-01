@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Allow: /login
+Allow: /register
 
 # Block private & sensitive routes
 Disallow: /admin

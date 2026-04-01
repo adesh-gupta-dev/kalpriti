@@ -1,7 +1,28 @@
+import dynamic from "next/dynamic";
 import { Card } from "../../../components/ui/Card";
-import { RevenueTrendChart } from "../../../components/charts/RevenueTrendChart";
-import { PaymentStatusChart } from "../../../components/charts/PaymentStatusChart";
 import { formatCurrencyInr } from "../../../utils/formatters";
+
+const RevenueTrendChart = dynamic(
+  () =>
+    import("../../../components/charts/RevenueTrendChart").then(
+      (module) => module.RevenueTrendChart,
+    ),
+  {
+    ssr: false,
+    loading: () => <div className="h-[320px] rounded-2xl border border-ink/10" />,
+  },
+);
+
+const PaymentStatusChart = dynamic(
+  () =>
+    import("../../../components/charts/PaymentStatusChart").then(
+      (module) => module.PaymentStatusChart,
+    ),
+  {
+    ssr: false,
+    loading: () => <div className="h-[320px] rounded-2xl border border-ink/10" />,
+  },
+);
 
 export function AnalyticsOverview({ stats, revenueTrend, paymentStatusData }) {
   return (
