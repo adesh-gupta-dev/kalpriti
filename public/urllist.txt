@@ -1,0 +1,3 @@
+https://kalpriti.vercel.app/
+https://kalpriti.vercel.app/login
+https://kalpriti.vercel.app/register
