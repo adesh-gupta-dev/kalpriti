@@ -38,8 +38,8 @@ export default function App({ Component, pageProps }) {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
           <link rel="manifest" href="/site.webmanifest" />
-          {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-          {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
+          <link href="https://fonts.googleapis.com" />
+          <link href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link
             href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
             rel="stylesheet"
