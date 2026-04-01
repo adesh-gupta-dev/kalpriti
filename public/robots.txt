@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block private & sensitive routes
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /projects
+Disallow: /api
+Disallow: /reset-password
+Disallow: /verify-email
+
+# Sitemap
+Sitemap: https://kalpriti.vercel.app/sitemap.xml
