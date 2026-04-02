@@ -44,11 +44,13 @@ export default function App({ Component, pageProps }) {
       <AuthProvider>
         <div className={`${sora.variable} ${spaceGrotesk.variable}`}>
           <Head>
-            <title>{defaultTitle}</title>
+            <title>{APP_NAME}</title>
           <meta
             name="description"
             content="Kalpriti - AI-powered website builder platform"
           />
+          
+          
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
           <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
@@ -56,6 +58,7 @@ export default function App({ Component, pageProps }) {
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#0e7490" />
+
           </Head>
           <ThemedToaster />
           {getLayout(<Component {...pageProps} />)}

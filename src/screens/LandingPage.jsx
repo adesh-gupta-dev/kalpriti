@@ -55,6 +55,11 @@ export default function LandingPage() {
         price: "0",
         priceCurrency: "USD",
       },
+      author: {
+        "@type": "Person",
+        name: "Adesh Gupta",
+        url: "https://adesh-gupta-dev.vercel.app/",
+      },
     }),
     [],
   );
@@ -62,7 +67,7 @@ export default function LandingPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-surface text-ink">
       <Head>
-        <title>{APP_NAME} | AI Website Builder</title>
+        <title>{`${APP_NAME} | AI Website Builder`}</title>
         <meta
           name="description"
           content="Build production-ready websites from a single prompt with Kalpriti."
@@ -71,7 +76,12 @@ export default function LandingPage() {
           name="keywords"
           content="AI website builder, prompt to website, website generator, AI web design, no-code website builder, code generation, landing page builder, website automation, SaaS website builder, Kalpriti"
         />
-        <meta property="og:title" content={`${APP_NAME} | AI Website Builder`} />
+        <meta name="author" content="Adesh Gupta" />
+        <link rel="author" href="https://adesh-gupta-dev.vercel.app/" />
+        <meta
+          property="og:title"
+          content={`${APP_NAME} | AI Website Builder`}
+        />
         <meta
           property="og:description"
           content="Build production-ready websites from a single prompt with Kalpriti."
@@ -89,7 +99,10 @@ export default function LandingPage() {
       <HeroOrb className="bottom-10 left-1/3 h-72 w-72 bg-cyan-400/20" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-        <Link href="/" className="font-display text-2xl font-bold tracking-tight text-primary">
+        <Link
+          href="/"
+          className="font-display text-2xl font-bold tracking-tight text-primary"
+        >
           {APP_NAME}
         </Link>
 
@@ -101,7 +114,12 @@ export default function LandingPage() {
             </Button>
           ) : (
             <>
-              <Button as={Link} href="/login" variant="secondary" className="hidden sm:inline-flex">
+              <Button
+                as={Link}
+                href="/login"
+                variant="secondary"
+                className="hidden sm:inline-flex"
+              >
                 Login
               </Button>
               <Button as={Link} href="/register">
@@ -130,26 +148,41 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Button as={Link} href={isAuthenticated ? "/projects/new" : "/register"} size="lg">
+              <Button
+                as={Link}
+                href={isAuthenticated ? "/projects/new" : "/register"}
+                size="lg"
+              >
                 Start Building
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button as={Link} href={isAuthenticated ? "/projects" : "/login"} variant="secondary" size="lg">
+              <Button
+                as={Link}
+                href={isAuthenticated ? "/projects" : "/login"}
+                variant="secondary"
+                size="lg"
+              >
                 View Demo Workflow
               </Button>
             </div>
 
             <div className="grid max-w-xl grid-cols-3 gap-3 pt-2">
               <div className="rounded-2xl border border-ink/10 bg-panel/70 p-3 text-center">
-                <p className="font-display text-2xl font-bold text-primary">10x</p>
+                <p className="font-display text-2xl font-bold text-primary">
+                  10x
+                </p>
                 <p className="text-xs text-muted">Faster Iteration</p>
               </div>
               <div className="rounded-2xl border border-ink/10 bg-panel/70 p-3 text-center">
-                <p className="font-display text-2xl font-bold text-primary">1-click</p>
+                <p className="font-display text-2xl font-bold text-primary">
+                  1-click
+                </p>
                 <p className="text-xs text-muted">Version Restore</p>
               </div>
               <div className="rounded-2xl border border-ink/10 bg-panel/70 p-3 text-center">
-                <p className="font-display text-2xl font-bold text-primary">Live</p>
+                <p className="font-display text-2xl font-bold text-primary">
+                  Live
+                </p>
                 <p className="text-xs text-muted">Code Preview</p>
               </div>
             </div>
@@ -165,7 +198,8 @@ export default function LandingPage() {
               <div className="rounded-xl border border-ink/10 bg-surface p-3">
                 <p className="text-xs text-muted">AI Chat</p>
                 <p className="mt-1 text-sm">
-                  “Create a clean SaaS landing page with pricing and testimonials.”
+                  “Create a clean SaaS landing page with pricing and
+                  testimonials.”
                 </p>
               </div>
 
@@ -178,7 +212,9 @@ export default function LandingPage() {
 
               <div className="rounded-xl border border-ink/10 bg-surface p-3">
                 <p className="text-xs text-muted">Version</p>
-                <p className="mt-1 text-sm">“Homepage refinement before launch”</p>
+                <p className="mt-1 text-sm">
+                  “Homepage refinement before launch”
+                </p>
               </div>
             </div>
           </Card>
@@ -210,15 +246,24 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="pricing" className="relative z-10 mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <section
+        id="pricing"
+        className="relative z-10 mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8"
+      >
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="font-display text-3xl font-bold">Simple credit-based plans</h2>
+            <h2 className="font-display text-3xl font-bold">
+              Simple credit-based plans
+            </h2>
             <p className="mt-1 text-sm text-muted">
               Scale from personal projects to enterprise workflows.
             </p>
           </div>
-          <Button as={Link} href={isAuthenticated ? "/pricing" : "/register"} variant="secondary">
+          <Button
+            as={Link}
+            href={isAuthenticated ? "/pricing" : "/register"}
+            variant="secondary"
+          >
             Full Pricing
           </Button>
         </div>
@@ -227,12 +272,16 @@ export default function LandingPage() {
           {PRICING_PLANS.map((plan) => (
             <Card key={plan.id} className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-display text-xl font-semibold">{plan.name}</h3>
+                <h3 className="font-display text-xl font-semibold">
+                  {plan.name}
+                </h3>
                 <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-semibold text-primary">
                   {plan.credits} credits
                 </span>
               </div>
-              <p className="text-3xl font-bold">{formatCurrencyInr(plan.price)}</p>
+              <p className="text-3xl font-bold">
+                {formatCurrencyInr(plan.price)}
+              </p>
               <p className="text-sm text-muted">{plan.description}</p>
             </Card>
           ))}
@@ -242,12 +291,18 @@ export default function LandingPage() {
       <section className="relative z-10 border-t border-ink/10 bg-panel/60">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:px-6 md:flex-row md:items-center lg:px-8">
           <div>
-            <h2 className="font-display text-2xl font-bold">Ready to launch your next website faster?</h2>
+            <h2 className="font-display text-2xl font-bold">
+              Ready to launch your next website faster?
+            </h2>
             <p className="mt-1 text-sm text-muted">
               Start with Kalpriti and ship ideas into production quickly.
             </p>
           </div>
-          <Button as={Link} href={isAuthenticated ? "/projects/new" : "/register"} size="lg">
+          <Button
+            as={Link}
+            href={isAuthenticated ? "/projects/new" : "/register"}
+            size="lg"
+          >
             <Rocket className="h-4 w-4" />
             Build with AI
           </Button>
@@ -256,7 +311,20 @@ export default function LandingPage() {
 
       <footer className="relative z-10 border-t border-ink/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-muted sm:px-6 lg:px-8">
-          <p>© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {APP_NAME}. All rights reserved.
+          </p>
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink/70">
+            Developer
+            <a
+              href="https://adesh-gupta-dev.vercel.app/"
+              className="text-sm font-medium normal-case text-muted transition-colors hover:text-primary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Adesh Gupta
+            </a>
+          </span>
           <span className="inline-flex items-center gap-1">
             <Bot className="h-4 w-4" />
             AI-powered Website Builder
