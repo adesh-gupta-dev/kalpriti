@@ -74,7 +74,7 @@ export default function LandingPage() {
         />
         <meta
           name="keywords"
-          content="AI website builder, prompt to website, website generator, AI web design, no-code website builder, code generation, landing page builder, website automation, SaaS website builder, Kalpriti"
+          content="AI website builder, bca , mgkvp ,final year project, bca 5th sem project, bca 6th sem project ,mgkvp final year project, bca final year project ,mahatma gandhi kashi vidhyapeeth, bhu , college project, prompt to website, website generator, AI web design, no-code website builder, code generation, landing page builder, website automation, SaaS website builder, Kalpriti"
         />
         <meta name="author" content="Adesh Gupta" />
         <link rel="author" href="https://adesh-gupta-dev.vercel.app/" />
