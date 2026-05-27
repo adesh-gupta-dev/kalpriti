@@ -4,33 +4,54 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
+        {/* Theme Loader */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function () {
                 try {
                   var theme = localStorage.getItem("kalpriti-theme");
-                  if (theme === "dark") document.documentElement.classList.add("dark");
+                  if (theme === "dark") {
+                    document.documentElement.classList.add("dark");
+                  }
                 } catch (e) {}
               })();
             `,
           }}
         />
-        
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NJPVJ4P4');</script>
 
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){
+                w[l]=w[l]||[];
+                w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),
+                    dl=l!='dataLayer' ? '&l='+l : '';
+                j.async=true;
+                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-NJPVJ4P4');
+            `,
+          }}
+        />
       </Head>
+
       <body>
+        {/* GTM NoScript */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NJPVJ4P4"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
         <Main />
         <NextScript />
-        
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJPVJ4P4"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
       </body>
     </Html>
   );
