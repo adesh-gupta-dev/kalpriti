@@ -58,10 +58,18 @@ export default function App({ Component, pageProps }) {
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#0e7490" />
+            <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJPVJ4P4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
           </Head>
           <ThemedToaster />
           {getLayout(<Component {...pageProps} />)}
+              <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJPVJ4P4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
         </div>
       </AuthProvider>
     </ThemeProvider>
